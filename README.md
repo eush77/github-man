@@ -28,6 +28,12 @@ Default: `true`
 
 Emit readme in troff.
 
+## Related
+
+- [npm-man] — open any package readme from npm as a man page.
+
+[npm-man]: https://github.com/eush77/npm-man
+
 ## Install
 
 ```
