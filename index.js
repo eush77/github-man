@@ -1,7 +1,7 @@
 'use strict';
 
-var readmeToManPage = require('readme-to-man-page'),
-    githubGet = require('github-get');
+var githubReadme = require('github-readme'),
+    readmeToManPage = require('readme-to-man-page');
 
 
 module.exports = function (user, repo, opts, cb) {
@@ -14,7 +14,7 @@ module.exports = function (user, repo, opts, cb) {
     opts.man = true;
   }
 
-  githubGet(user, repo, 'README.md', function (err, _, readme) {
+  githubReadme(user, repo, function (err, readme) {
     if (err) return cb(err);
     cb(null, opts.man ? manPage(readme) : readme);
   });
