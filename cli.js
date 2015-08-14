@@ -45,7 +45,7 @@ var opts = minimist(process.argv.slice(2), {
   var pager = opts.markdown ? defaultPager : manPager;
 
   githubMan(argv[0], argv[1], { man: !opts.markdown }, function (err, man) {
-    if (err) return console.error(err);
+    if (err) return console.error(err.toString());
     pager().end(man);
   });
 }(opts, opts._));
