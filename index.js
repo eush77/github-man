@@ -22,7 +22,8 @@ module.exports = function (user, repo, opts, cb) {
   function manPage (readme) {
     return readmeToManPage(readme, {
       name: repo,
-      section: 'github'
+      section: 'github',
+      manual: user + '/' + repo
     });
   }
 };
