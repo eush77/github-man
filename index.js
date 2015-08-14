@@ -1,7 +1,8 @@
 'use strict';
 
 var githubReadme = require('github-readme'),
-    readmeToManPage = require('readme-to-man-page');
+    readmeToManPage = require('readme-to-man-page'),
+    ghgot = require('gh-got');
 
 
 module.exports = function (user, repo, opts, cb) {
@@ -16,14 +17,22 @@ module.exports = function (user, repo, opts, cb) {
 
   githubReadme(user, repo, function (err, readme) {
     if (err) return cb(err);
-    cb(null, opts.man ? manPage(readme) : readme);
+    opts.man
+      ? manPage(readme, cb)
+      : cb(readme);
   });
 
-  function manPage (readme) {
-    return readmeToManPage(readme, {
-      name: repo,
-      section: 'github',
-      manual: user + '/' + repo
+  function manPage (readme, cb) {
+    ghgot(['repos', user, repo].join('/'), function (err, info) {
+      if (err) return cb(err);
+
+      cb(null, readmeToManPage(readme, {
+        name: repo,
+        description: info.description,
+        date: info.updated_at,
+        section: 'github',
+        manual: user + '/' + repo + (info.fork ? ' (fork)' : '')
+      }));
     });
   }
 };
