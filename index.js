@@ -19,7 +19,7 @@ module.exports = function (user, repo, opts, cb) {
     if (err) return cb(err);
     opts.man
       ? manPage(readme, cb)
-      : cb(readme);
+      : cb(null, readme);
   });
 
   function manPage (readme, cb) {
