@@ -4,48 +4,25 @@
 var githubMan = require('./');
 
 var help = require('help-version')(usage()).help,
-    minimist = require('minimist'),
-    manPager = require('man-pager'),
-    defaultPager = require('default-pager');
+    manPager = require('man-pager');
 
 
 function usage() {
   return [
-    'Usage:  github-man [--markdown | -m] <user> <repo>',
+    'Usage:  github-man <user> <repo>',
     '',
-    'Fetch from GitHub and open readme as a man page.',
-    '',
-    'Options:',
-    '  --markdown, -m  Open readme in Markdown instead.'
+    'Open README from GitHub repository as a man page.'
   ].join('\n');
 }
 
 
-var opts = minimist(process.argv.slice(2), {
-  boolean: 'markdown',
-  alias: {
-    markdown: 'm',
-  },
-  default: {
-    markdown: false
-  },
-  unknown: function (arg) {
-    if (arg[0] == '-') {
-      return help(1);
-    }
-  }
-});
-
-
-(function (opts, argv) {
+(function (argv) {
   if (argv.length != 2) {
     return help(argv.length);
   }
 
-  var pager = opts.markdown ? defaultPager : manPager;
-
-  githubMan(argv[0], argv[1], { man: !opts.markdown }, function (err, man) {
+  githubMan(argv[0], argv[1], function (err, man) {
     if (err) return console.error(err.toString());
-    pager().end(man);
+    manPager().end(man);
   });
-}(opts, opts._));
+}(process.argv.slice(2)));

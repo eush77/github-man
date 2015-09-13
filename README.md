@@ -13,22 +13,15 @@ Open README from GitHub repository as a man page.
 
 ## CLI
 
-### `github-man [--markdown | -m] <user> <repo>`
+### `github-man <user> <repo>`
 
-Opens readme for `<user>/<repo>` as a man page or in `$PAGER` (with `--markdown`).
+Opens readme for `<user>/<repo>` as a man page.
 
 ## API
 
-### `githubMan(user, repo, [opts], cb(err, man))`
+### `githubMan(user, repo, cb(err, man))`
 
-Fetches readme for `<user>/<repo>` from GitHub and returns it as a man page.
-
-#### `opts.man`
-
-Type: `Boolean` <br>
-Default: `true`
-
-Emit readme in troff.
+Fetches readme for `<user>/<repo>` from GitHub and renders it into a man page.
 
 ## Related
 

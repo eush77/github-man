@@ -5,21 +5,10 @@ var githubReadme = require('github-readme'),
     ghgot = require('gh-got');
 
 
-module.exports = function (user, repo, opts, cb) {
-  if (typeof opts == 'function') {
-    cb = opts;
-    opts = {};
-  }
-
-  if (opts.man == null) {
-    opts.man = true;
-  }
-
+module.exports = function (user, repo, cb) {
   githubReadme(user, repo, function (err, readme) {
     if (err) return cb(err);
-    opts.man
-      ? manPage(readme, cb)
-      : cb(null, readme);
+    manPage(readme, cb);
   });
 
   function manPage (readme, cb) {
