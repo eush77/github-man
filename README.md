@@ -6,6 +6,8 @@
 
 Open README from GitHub repository as a man page.
 
+![screenshot](screenshot.png)
+
 [david]: https://david-dm.org/eush77/github-man
 [david-badge]: https://david-dm.org/eush77/github-man.png
 
