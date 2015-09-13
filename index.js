@@ -2,7 +2,7 @@
 
 var githubReadme = require('github-readme'),
     readmeToManPage = require('readme-to-man-page'),
-    ghgot = require('gh-got');
+    got = require('got');
 
 
 module.exports = function (user, repo, cb) {
@@ -12,7 +12,12 @@ module.exports = function (user, repo, cb) {
   });
 
   function manPage (readme, cb) {
-    ghgot(['repos', user, repo].join('/'), function (err, info) {
+    got(['https://api.github.com/repos', user, repo].join('/'), {
+      json: true,
+      headers: {
+        accept: 'application/vnd.github.v3+json'
+      }
+    }, function (err, info) {
       if (err) return cb(err);
 
       cb(null, readmeToManPage(readme, {
